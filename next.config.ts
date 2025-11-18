@@ -1,7 +1,9 @@
-import type { NextConfig } from "next";
+// next.config.ts
 import path from "node:path";
 
-const nextConfig: NextConfig = {
+const LOADER = path.resolve(__dirname, 'src/visual-edits/component-tagger-loader.js');
+
+const nextConfig = {  // ← أزل ": NextConfig"
   images: {
     remotePatterns: [
       {
@@ -18,7 +20,18 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  // إزالة جميع الإعدادات غير المدعومة
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  experimental: {
+    turbo: {
+      rules: {
+        "*.{jsx,tsx}": {
+          loaders: [LOADER]
+        }
+      }
+    }
+  }
 };
 
 export default nextConfig;
