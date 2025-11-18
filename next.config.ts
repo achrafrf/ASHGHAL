@@ -1,9 +1,6 @@
-// next.config.ts
-import path from "node:path";
-
-const LOADER = path.resolve(__dirname, 'src/visual-edits/component-tagger-loader.js');
-
-const nextConfig = {  // ← أزل ": NextConfig"
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: 'export',  // ← هذا هو الحل!
   images: {
     remotePatterns: [
       {
@@ -16,22 +13,13 @@ const nextConfig = {  // ← أزل ": NextConfig"
       },
     ],
   },
-  outputFileTracingRoot: path.resolve(__dirname, '../../'),
   typescript: {
     ignoreBuildErrors: true,
   },
   eslint: {
     ignoreDuringBuilds: true,
   },
-  experimental: {
-    turbo: {
-      rules: {
-        "*.{jsx,tsx}": {
-          loaders: [LOADER]
-        }
-      }
-    }
-  }
-};
+  // إزالة turbopack تماماً
+}
 
-export default nextConfig;
+module.exports = nextConfig
