@@ -19,7 +19,6 @@ const Navigation = () => {
     { href: "/", label: t("nav.home") },
     { href: "/about", label: t("nav.about") },
     { href: "/services", label: t("nav.services") },
-    { href: "/portfolio", label: t("nav.portfolio") },
     { href: "/contact", label: t("nav.contact") },
   ];
 
@@ -58,7 +57,7 @@ const Navigation = () => {
               key={link.href}
               href={link.href}
               className={cn(
-                "p-[18px] text-base font-sans leading-none no-underline transition-colors duration-300 ease-linear",
+                "p-[18px] text-base font-bold italic tracking-tight leading-none no-underline transition-colors duration-300 ease-linear",
                 isScrolledNav
                   ? "text-white hover:opacity-70"
                   : "text-white hover:text-brand-red",

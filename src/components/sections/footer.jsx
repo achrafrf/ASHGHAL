@@ -22,8 +22,8 @@ const Footer = () => {
             </p>
             <div className="text-base leading-relaxed space-y-1">
               <p>{t('footer.location')}</p>
-              <a href="tel:281-384-8726" className="block hover:opacity-80 transition-opacity duration-300">281-384-8726</a>
-              <a href="mailto:greg@swiftholdings.com" className="block hover:opacity-80 transition-opacity duration-300">greg@swiftholdings.com</a>
+              <a href="tel:+212 767113363" className="block hover:opacity-80 transition-opacity duration-300">+212 767113363</a>
+              <a href="mailto:itsachrafrafiq@gmail.com" className="block hover:opacity-80 transition-opacity duration-300">itsachrafrafiq@gmail.com</a>
             </div>
           </div>
 
@@ -34,7 +34,6 @@ const Footer = () => {
               <ul className="space-y-2">
                 <li><Link href="/" className="text-base hover:underline hover:opacity-80 transition-opacity duration-300">{t('nav.home')}</Link></li>
                 <li><Link href="/about" className="text-base hover:underline hover:opacity-80 transition-opacity duration-300">{t('nav.about')}</Link></li>
-                <li><Link href="/portfolio" className="text-base hover:underline hover:opacity-80 transition-opacity duration-300">{t('nav.portfolio')}</Link></li>
                 <li><Link href="/services" className="text-base hover:underline hover:opacity-80 transition-opacity duration-300">{t('nav.services')}</Link></li>
                 <li><Link href="/contact" className="text-base hover:underline hover:opacity-80 transition-opacity duration-300">{t('nav.contact')}</Link></li>
               </ul>
@@ -89,7 +88,7 @@ const Footer = () => {
           <p className="text-sm leading-relaxed">
             {t('footer.copyright')}
             <br />
-            {t('footer.website')} <a href="https://sdmdesignllc.com" target="_blank" rel="noopener noreferrer" className="hover:underline hover:opacity-80 transition-opacity duration-300">SDM&nbsp;Design</a>
+            {t('footer.website')} <a href="https://sdmdesignllc.com" target="_blank" rel="noopener noreferrer" className="hover:underline hover:opacity-80 transition-opacity duration-300">ACHRAF&nbsp;RAFIQ</a>
           </p>
         </div>
       </div>
