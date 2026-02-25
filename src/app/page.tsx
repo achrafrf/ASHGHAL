@@ -2,7 +2,6 @@ import Navigation from "@/components/sections/navigation";
 import Hero from "@/components/sections/hero";
 import IntroSection from "@/components/sections/intro-section";
 import ParallaxDivider01 from "@/components/sections/parallax-divider-01";
-import ServicesSection from "@/components/sections/services-section";
 import ParallaxDivider02 from "@/components/sections/parallax-divider-02";
 import GroundUpSection from "@/components/sections/ground-up-section";
 import ParallaxDivider03 from "@/components/sections/parallax-divider-03";
