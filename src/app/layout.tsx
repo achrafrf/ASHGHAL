@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 import VisualEditsMessenger from "../visual-edits/VisualEditsMessenger";
 import ErrorReporter from "@/components/ErrorReporter";
-import Script from "next/script";
 import { LanguageProvider } from "@/lib/i18n/LanguageContext";
+import Navigation from "@/components/sections/navigation";
+import Footer from "@/components/sections/footer";
+import { Toaster } from 'react-hot-toast';
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,19 +22,12 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased">
         <LanguageProvider>
+          <Navigation />  
           <ErrorReporter />
-          <Script
-            src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/scripts//route-messenger.js"
-            strategy="afterInteractive"
-            data-target-origin="*"
-            data-message-type="ROUTE_CHANGE"
-            data-include-search-params="true"
-            data-only-in-iframe="true"
-            data-debug="true"
-            data-custom-data='{"appName": "YourApp", "version": "1.0.0", "greeting": "hi"}'
-          />
+          <Toaster position="bottom-right" reverseOrder={false} />
           {children}
           <VisualEditsMessenger />
+          <Footer />
         </LanguageProvider>
       </body>
     </html>

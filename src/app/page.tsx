@@ -20,19 +20,12 @@ export default function HomePage() {
       <Navigation />
       <main>
         <Hero />
-        <IntroSection />
-        <ParallaxDivider01 />
-        <ServicesSection />
-        <ParallaxDivider02 />
-        <GroundUpSection />
-        <ParallaxDivider03 />
         <RecentProjects />
         <RentalEquipmentSection />
         <ClientsSection />
         <ConsultationSection />
         <ParallaxDivider06 />
       </main>
-      <Footer />
       <BackToTopButton />
     </div>
   );

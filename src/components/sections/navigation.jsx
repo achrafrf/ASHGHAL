@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { Menu, X, User, LayoutDashboard, LogOut, LogIn } from "lucide-react"; 
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { LanguageSwitcher } from "@/components/ui/language-switcher";
 
@@ -12,120 +12,161 @@ const cn = (...classes) => classes.filter(Boolean).join(" ");
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
   const pathname = usePathname();
+  const router = useRouter();
   const { t } = useLanguage();
 
-  const navLinks = [
-    { href: "/", label: t("nav.home") },
-    { href: "/about", label: t("nav.about") },
-    { href: "/services", label: t("nav.services") },
-    { href: "/contact", label: t("nav.contact") },
-  ];
+  // واش حنا ف الصفحة الرئيسية؟
+  const isHomePage = pathname === "/";
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+    const checkAuth = () => {
+      const savedUser = localStorage.getItem("user");
+      if (savedUser) setUser(JSON.parse(savedUser));
+      else setUser(null);
     };
+    checkAuth();
+    window.addEventListener('storage', checkAuth);
+    return () => window.removeEventListener('storage', checkAuth);
+  }, [pathname]);
 
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    setUser(null);
+    router.push("/");
+    router.refresh();
+  };
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-  const NavContent = ({ isScrolledNav = false }) => (
-    <div className="container flex h-full items-center justify-between">
-      <Link href="/" className="relative z-20" aria-label="home">
-        <span 
-          className={cn(
-            "text-4xl font-black italic tracking-tight",
-            isScrolledNav ? "text-white" : "text-white"
-          )}
-          style={{ fontWeight: 900 }}
-        >
-          ASHGHAL
-        </span>
-      </Link>
-      
-      <nav className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center md:flex">
-        {navLinks.map((link) => {
-          const isActive = pathname === link.href;
-          return (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(
-                "p-[18px] text-base font-bold italic tracking-tight leading-none no-underline transition-colors duration-300 ease-linear",
-                isScrolledNav
-                  ? "text-white hover:opacity-70"
-                  : "text-white hover:text-brand-red",
-                isActive && !isScrolledNav && "text-brand-red",
-                isActive && isScrolledNav && "font-bold"
-              )}
-              style={{ letterSpacing: "-0.5px" }}
-            >
-              {link.label}
-            </Link>
-          );
-        })}
-      </nav>
+  const isAdmin = user?.roles?.includes("ROLE_ADMIN");
 
-      <div className="flex items-center gap-2 z-20">
-        <LanguageSwitcher isScrolled={isScrolledNav} />
-        <div className="md:hidden">
-          <button onClick={toggleMenu} aria-label="Toggle menu" className="text-white">
-            <Menu size={30} />
+  // تحديد لون النص بناءً على الصفحة وحالة السكرول
+  const getTextColor = (isActive = false) => {
+    if (isScrolled) return "text-white"; // فاش كيهبط السيت والنافبار كتولي حمرا
+    if (!isHomePage) return isActive ? "text-brand-red" : "text-white"; // فـ صفحات About/Services الروابط كحلين
+    return isActive ? "text-brand-red" : "text-white"; // فـ الهوم الروابط بيضين
+  };
+
+  const AuthSection = ({ isMobile = false }) => {
+    if (user) {
+      return (
+        <div className={cn("flex items-center gap-4", isMobile && "flex-col mt-8 w-full")}>
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-brand-red rounded-full flex items-center justify-center border border-white/20 shrink-0">
+              <User size={16} className="text-white" />
+            </div>
+            <span className={cn("text-sm font-black italic uppercase truncate max-w-[100px]", getTextColor())}>
+              {user.username}
+            </span>
+          </div>
+
+          {isAdmin && (
+            <Link href="/dashboard" className="bg-black text-white text-[10px] font-black uppercase px-3 py-1.5 hover:bg-brand-red transition-all shrink-0">
+              Admin
+            </Link>
+          )}
+
+          <button onClick={handleLogout} className={cn("text-[10px] font-black uppercase tracking-widest border px-3 py-1.5 transition-all shrink-0", 
+            isScrolled ? "border-white text-white hover:bg-white hover:text-brand-red" : "border-brand-red text-brand-red hover:bg-brand-red hover:text-white"
+          )}>
+            Logout
           </button>
         </div>
+      );
+    }
+
+    return (
+      <div className={cn("flex items-center gap-3", isMobile && "flex-col w-full mt-8")}>
+        <Link href="/login" className={cn("text-sm font-black italic uppercase transition-all shrink-0", getTextColor())}>
+          Sign In
+        </Link>
+        <Link href="/register" className="bg-brand-red text-white text-sm font-black italic uppercase px-5 py-2 hover:bg-black transition-all shrink-0">
+          Join Now
+        </Link>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <>
-      <header
-        id="top"
-        className={cn(
-          "absolute top-0 left-0 right-0 z-[1000] h-[76px] py-[5px] transition-opacity duration-300 ease-in-out",
-          isScrolled ? "pointer-events-none opacity-0" : "opacity-100"
-        )}
-      >
-        <NavContent />
-      </header>
-
-      <header
-        className={cn(
-          "fixed top-0 left-0 right-0 z-[1000] h-[76px] bg-brand-red py-[5px] shadow-[0_10px_12px_-7px_rgba(0,0,0,0.2)] transition-transform duration-300 ease-in-out",
-          isScrolled ? "translate-y-0" : "-translate-y-full"
-        )}
-      >
-        <NavContent isScrolledNav={true} />
-      </header>
-
-      <div
-        className={cn(
-          "fixed inset-0 z-[1001] bg-black/95 transition-transform duration-300 ease-in-out md:hidden",
-          isMenuOpen ? "translate-x-0" : "translate-x-full"
-        )}
-        onClick={toggleMenu}
-      >
-        <div className="container mx-auto flex h-full flex-col items-center justify-center px-4">
-          <button onClick={toggleMenu} className="absolute top-6 right-5 text-white" aria-label="Close menu">
-            <X size={36} />
-          </button>
-          <nav className="flex flex-col items-center gap-8">
-            {navLinks.map((link) => (
+      <header className={cn(
+        "fixed top-0 left-0 right-0 z-[1000] transition-all duration-500 flex items-center",
+        isScrolled ? "h-[70px] bg-brand-red shadow-2xl" : "h-[90px] bg-transparent"
+      )}>
+        <div className="container mx-auto px-6 flex items-center justify-between gap-4">
+          
+          {/* 1. Logo */}
+          <Link href="/" className="relative z-20 shrink-0">
+            <span className={cn("text-3xl font-black italic tracking-tighter transition-colors", getTextColor())}>
+              ASHGHAL
+            </span>
+          </Link>
+          
+          {/* 2. Desktop Links (تمركز مرن بلا زحام) */}
+          <nav className="hidden lg:flex items-center justify-center flex-grow gap-1">
+            {[
+              { href: "/", label: "Home" },
+              { href: "/about", label: "About" },
+              { href: "/services", label: "Services" },
+              { href: "/catalog", label: "Catalog" },
+              { href: "/contact", label: "Contact" },
+            ].map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-2xl font-semibold text-white no-underline transition-colors hover:text-brand-red"
-                onClick={(e) => e.stopPropagation()}
+                className={cn(
+                  "px-4 text-sm font-black italic uppercase tracking-tighter transition-all hover:text-brand-red",
+                  getTextColor(pathname === link.href)
+                )}
               >
                 {link.label}
               </Link>
             ))}
+          </nav>
+
+          {/* 3. Right Side (Auth + Lang) */}
+          <div className="flex items-center gap-4 shrink-0">
+            <div className="hidden sm:block">
+              <LanguageSwitcher isScrolled={isScrolled} />
+            </div>
+            <div className="hidden lg:block">
+              <AuthSection />
+            </div>
+            {/* Mobile Toggle */}
+            <button onClick={toggleMenu} className={cn("lg:hidden p-1", getTextColor())}>
+              <Menu size={32} />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Sidebar Overlay */}
+      <div className={cn(
+        "fixed inset-0 z-[1001] bg-black/95 transition-all duration-500 lg:hidden",
+        isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
+      )}>
+        <div className="p-8 flex flex-col h-full">
+          <button onClick={toggleMenu} className="self-end text-white p-2 border border-white/20 mb-12">
+            <X size={32} />
+          </button>
+          
+          <nav className="flex flex-col gap-8 items-center text-center">
+            {["Home", "About", "Services", "Catalog", "Contact"].map((item) => (
+              <Link key={item} href={item === "Home" ? "/" : `/${item.toLowerCase()}`} 
+                    onClick={toggleMenu} className="text-5xl font-black italic uppercase text-white hover:text-brand-red transition-all">
+                {item}
+              </Link>
+            ))}
+            <div className="w-full h-px bg-white/10 my-4"></div>
+            <AuthSection isMobile={true} />
           </nav>
         </div>
       </div>

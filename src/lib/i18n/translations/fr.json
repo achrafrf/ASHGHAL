@@ -4,6 +4,8 @@
   "nav.services": "Services",
   "nav.portfolio": "Portfolio",
   "nav.contact": "Contact",
+  "nav.signin": "se connecter",
+  "nav.signup": "s'inscrire",
   
   "hero.tagline": "Construction commerciale au plus haut niveau.",
   "hero.cta": "Voir les services",

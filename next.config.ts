@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',  // ← هذا هو الحل!
+  output: 'export', 
   images: {
+    unoptimized: true, // ← zid had l-star darori bach t-khdem export
     remotePatterns: [
       {
         protocol: 'https',
@@ -19,7 +20,6 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // إزالة turbopack تماماً
 }
 
 module.exports = nextConfig

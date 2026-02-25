@@ -4,6 +4,8 @@
   "nav.services": "Services",
   "nav.portfolio": "Portfolio",
   "nav.contact": "Contact",
+  "nav.signin": "signin",
+  "nav.signup": "signup",
   
   "hero.tagline": "Commercial Construction at it's finest.",
   "hero.cta": "View Services",
