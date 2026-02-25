@@ -19,7 +19,7 @@ export default function CatalogPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:8080/api/equipment/all");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/equipment/all`);
         if (!res.ok) throw new Error("Server error");
         const data = await res.json();
         setEquipmentList(Array.isArray(data) ? data : []);
@@ -69,7 +69,7 @@ export default function CatalogPage() {
   };
 
   try {
-    const res = await fetch("http://localhost:8080/api/bookings/add", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/bookings/add`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

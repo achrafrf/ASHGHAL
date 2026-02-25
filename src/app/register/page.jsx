@@ -32,7 +32,7 @@ export default function RegisterPage() {
 
     try {
       // 2. عيط للباكيند (Spring Boot)
-      const res = await fetch("http://localhost:8080/api/auth/sign-up", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/auth/sign-up`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

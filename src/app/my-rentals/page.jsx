@@ -20,7 +20,7 @@ export default function UserRentals() {
   const handleRemoveOrder = async (id) => {
     if (!confirm("Remove this request from your history?")) return;
     try {
-      const res = await fetch(`http://localhost:8080/api/bookings/delete/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/bookings/delete/${id}`, {
         method: "DELETE"
       });
       if (res.ok) {
@@ -31,7 +31,7 @@ export default function UserRentals() {
 
   const fetchUserBookings = async (userId) => {
     try {
-      const res = await fetch(`http://localhost:8080/api/bookings/user/${userId}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/bookings/user/${userId}`);
       const data = await res.json();
       setBookings(Array.isArray(data) ? data : []);
     } catch (err) { console.error(err); } finally { setLoading(false); }

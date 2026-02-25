@@ -30,7 +30,7 @@ const [currentEditId, setCurrentEditId] = useState(null);
 
    const fetchBookings = async () => {
   try {
-    const res = await fetch("http://localhost:8080/api/bookings/all");
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/bookings/all`);
     const data = await res.json();
     setBookings(Array.isArray(data) ? data : []);
   } catch (err) { console.error(err); }
@@ -57,7 +57,7 @@ const [currentEditId, setCurrentEditId] = useState(null);
 
   const fetchInventory = async () => {
   try {
-    const res = await fetch("http://localhost:8080/api/equipment/all");
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/equipment/all`);
     
     // تأكد واش الرد ديال السيرفر مزيان
     if (!res.ok) {
@@ -95,8 +95,8 @@ const handleSave = async (e) => {
       : newMachine;
 
     const url = isEditMode 
-      ? `http://localhost:8080/api/equipment/update/${currentEditId}`
-      : "http://localhost:8080/api/equipment/add";
+      ? `${process.env.NEXT_PUBLIC_API_URL}api/equipment/update/${currentEditId}`
+      : `${process.env.NEXT_PUBLIC_API_URL}api/equipment/add`;
       
     const method = isEditMode ? "PUT" : "POST";
 
@@ -137,11 +137,11 @@ const handleSave = async (e) => {
   console.log("Using Token:", token);
 
   try {
-    const res = await fetch("http://localhost:8080/api/equipment/add", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/equipment/add`, {
       method: "POST",
       headers: { 
-        "Content-Type": "application/json"
-        // حيدنا الـ Authorization header غير دابا للتجربة
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}` 
       },
       body: JSON.stringify(newMachine)
     });
@@ -212,7 +212,7 @@ const handleSave = async (e) => {
   if (!confirm("CRITICAL: Are you sure you want to decommission this unit?")) return;
 
   try {
-    const res = await fetch(`http://localhost:8080/api/equipment/delete/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/equipment/delete/${id}`, {
       method: "DELETE",
       headers: { "Authorization": `Bearer ${token}` }
     });
@@ -234,7 +234,7 @@ const handleStatusUpdate = async (id, newStatus) => {
   
   try {
     // ⚠️ تأكد من هاد الرابط بلي فيه ?status=
-    const res = await fetch(`http://localhost:8080/api/bookings/status/${id}?status=${newStatus}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/bookings/status/${id}?status=${newStatus}`, {
       method: "PUT",
       headers: { "Authorization": `Bearer ${token}` }
     });
@@ -262,7 +262,7 @@ const handleStatusUpdate = async (id, newStatus) => {
   const handleDeleteBooking = async (id) => {
   if (!confirm("Remove this order from records?")) return;
   try {
-    const res = await fetch(`http://localhost:8080/api/bookings/delete/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/bookings/delete/${id}`, {
       method: "DELETE",
       headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
     });
