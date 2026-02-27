@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏗️ ASHGHAL - Industrial Fleet Management System
 
-## Getting Started
+![Banner](https://ashghal.vercel.app/og-image.png) <!-- حط سكرينشوت للسيت هنا من بعد -->
 
-First, run the development server:
+> **ASHGHAL** is a high-performance, full-stack SaaS solution for heavy machinery rental, specifically engineered for the Moroccan BTP (Construction) sector.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org/)
+[![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.1-green?logo=springboot)](https://spring.io/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-blue?logo=docker)](https://www.docker.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-darkgreen?logo=mongodb)](https://www.mongodb.com/)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Key Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **🛡️ Secure RBAC:** Role-Based Access Control using JWT (Admin vs. Client).
+- **🚜 Dynamic Fleet Management:** Full CRUD operations for industrial assets.
+- **📊 Real-time Analytics:** Interactive dashboards with Recharts for fleet distribution and rental health.
+- **📱 Industrial UI:** A high-contrast, professional "Nadia Design" optimized for operational efficiency.
+- **☁️ Cloud Native:** Fully containerized with Docker, deployed on Railway (Backend) and Vercel (Frontend).
 
-## Learn More
+## 🛠️ Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+### Frontend
+- **Framework:** Next.js 15 (App Router)
+- **Styling:** Tailwind CSS
+- **Icons:** Lucide React
+- **Notifications:** React Hot Toast
+- **Charts:** Recharts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Backend
+- **Framework:** Spring Boot 3.1
+- **Security:** Spring Security & JWT
+- **Database:** MongoDB Atlas
+- **Documentation:** Swagger UI / OpenAPI 3
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🏗️ Architecture Diagram
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```mermaid
+graph TD
+    User(Operator/Client) -->|Next.js 15| Frontend
+    Frontend -->|JWT / REST| Backend[Spring Boot API]
+    Backend -->|Native Driver| MongoDB[(MongoDB Atlas)]
+    Backend -->|Container| Docker[Docker Cloud]
