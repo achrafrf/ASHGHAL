@@ -20,7 +20,7 @@ export default function RentalEquipmentSection() {
   useEffect(() => {
     const fetchEquipment = async () => {
       try {
-        const res = await fetch("http://localhost:8080/api/equipment/all");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/equipment/all`);
         const data = await res.json();
         if (Array.isArray(data)) {
           setEquipment(data.slice(0, 8));
@@ -57,7 +57,7 @@ export default function RentalEquipmentSection() {
     };
 
     try {
-      const res = await fetch("http://localhost:8080/api/bookings/add", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/bookings/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

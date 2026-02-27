@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Allow: /catalog
+Allow: /services
+Allow: /about
+Disallow: /dashboard/
+Disallow: /my-rentals/
+
+Sitemap: https://ashghal.vercel.app/sitemap.xml
