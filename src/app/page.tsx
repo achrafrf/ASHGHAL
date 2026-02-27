@@ -19,7 +19,7 @@ export default function HomePage() {
       <Navigation />
       <main>
         <Hero />
-        <RecentProjects />
+        {/* <RecentProjects /> */}
         <RentalEquipmentSection />
         <ClientsSection />
         <ConsultationSection />

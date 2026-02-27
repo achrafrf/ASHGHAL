@@ -41,13 +41,13 @@ export default function ContactPage() {
           <ContactCard 
             icon={<Phone size={32} />} 
             title="Call Us" 
-            value="+212 522 00 00 00" 
+            value="+212 767 11 33 63" 
             desc="Direct line to dispatch"
           />
           <ContactCard 
             icon={<Mail size={32} />} 
             title="Email Us" 
-            value="rentals@ashghal.ma" 
+            value="itsachrafrafiq@gmail.com" 
             desc="Average response: 2h"
           />
           <ContactCard 
@@ -112,7 +112,7 @@ export default function ContactPage() {
             </div>
             <div className="mt-12 pt-12 border-t border-neutral-800">
                <span className="text-neutral-500 font-black uppercase text-[10px] tracking-widest block mb-2">Emergency Hotline</span>
-               <span className="text-4xl font-black text-[#ff0000] italic">+212 522 99 99 99</span>
+               <span className="text-4xl font-black text-[#ff0000] italic">+212 767 11 33 63</span>
             </div>
           </div>
         </div>
