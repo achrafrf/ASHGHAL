@@ -3,30 +3,30 @@
 import React from 'react';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
 
-const clients = [
+const clients =[
   {
-    name: 'Subway',
-    logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/580123dd-7e94-4ec6-8e55-04cb0de4832a-swiftholdings-com/assets/images/5e89264306f67076cdcef52b_Subway-16.svg',
+    name: 'Caterpillar',
+    logo: 'https://pnghunter.com/get-logo.php?id=3842',
   },
   {
-    name: 'Kolache Factory',
-    logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/580123dd-7e94-4ec6-8e55-04cb0de4832a-swiftholdings-com/assets/images/5e892792ec626f61032b4397_swift_Logo_kolachefactory-17.svg',
+    name: 'Komatsu',
+    logo: 'https://i.pinimg.com/736x/01/ff/d0/01ffd07c3394e32bae86845d7d10b7c5.jpg',
   },
   {
-    name: 'Hand & Stone',
-    logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/580123dd-7e94-4ec6-8e55-04cb0de4832a-swiftholdings-com/assets/images/5e8927a3acdbb5619b39d2ee_swift_Logo_hand_26stone-18.svg',
+    name: 'Volvo Construction',
+    logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTJ930Vz-4aXv7Q35-03Wn8mxSezbg5fZlYQ&s',
   },
   {
-    name: "Schlotzsky's",
-    logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/580123dd-7e94-4ec6-8e55-04cb0de4832a-swiftholdings-com/assets/images/5e8927b5bcf6e1e638c47e26_swift_Logo_schlotzskys-19.svg',
+    name: 'JCB',
+    logo: 'https://download.logo.wine/logo/JCB_(company)/JCB_(company)-Logo.wine.png',
   },
   {
-    name: 'Shell',
-    logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/580123dd-7e94-4ec6-8e55-04cb0de4832a-swiftholdings-com/assets/images/5e8927c3bcf6e1ab73c47e34_swift_Logo_shell-20.svg',
+    name: 'LafargeHolcim',
+    logo: 'https://www.lafargeholcim.ma/sites/morocco/files/styles/teaser_3cols/public/2022-07/logo-image-rt.jpg.webp?h=e7f7be8c&itok=o9xMbL1c',
   },
   {
-    name: 'Chevron',
-    logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/580123dd-7e94-4ec6-8e55-04cb0de4832a-swiftholdings-com/assets/images/5e8927d4fbc2c0087ed5837c_swift_Logo_chevron-21.svg',
+    name: 'Vinci Construction',
+    logo: 'https://images.seeklogo.com/logo-png/36/1/vinci-construction-logo-png_seeklogo-361872.png',
   },
 ];
 
@@ -34,18 +34,27 @@ const ClientsSection = () => {
   const { t } = useLanguage();
 
   return (
-    <section className="bg-white dark:bg-white text-black">
-      <div className="mx-auto max-w-[1100px] px-10 py-20">
-        <h2 className="text-center text-[36px] font-bold text-[#666666] mb-16">
-          {t('clients.title')}
-        </h2>
-        <div className="grid grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-y-8 lg:grid-cols-3 lg:gap-x-12">
+    <section className="bg-[#f9f9f9] border-t border-gray-200">
+      <div className="mx-auto max-w-[1200px] px-10 py-24">
+        {/* Title Section */}
+        <div className="text-center mb-16">
+          <h2 className="text-[12px] font-black uppercase tracking-[0.3em] text-[#ff0000] mb-2">
+            Trusted Partners
+          </h2>
+          <h3 className="text-[36px] font-black italic text-[#1a1a1a] uppercase tracking-tighter">
+            {t('clients.title') || 'POWERING INDUSTRY LEADERS'}
+          </h3>
+        </div>
+
+        {/* Logos Grid */}
+        <div className="grid grid-cols-2 gap-y-12 md:grid-cols-3 lg:grid-cols-6 items-center justify-items-center">
           {clients.map((client) => (
-            <div key={client.name} className="flex justify-center items-center p-6">
+            <div key={client.name} className="flex justify-center items-center w-full p-4 group cursor-pointer">
               <img
                 src={client.logo}
                 alt={`${client.name} logo`}
-                className="max-w-[180px] h-auto object-contain grayscale opacity-60 transition-all duration-300 ease-in-out hover:grayscale-0 hover:opacity-100"
+                title={client.name}
+                className="max-w-[120px] md:max-w-[140px] h-auto object-contain grayscale opacity-40 transition-all duration-500 ease-in-out group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110"
               />
             </div>
           ))}
